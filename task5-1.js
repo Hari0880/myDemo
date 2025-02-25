@@ -1,14 +1,24 @@
-const os = require('os')
 
-function calMemo(){
-let freemem0 = os.freemem();
-let total = os.totalmem()
-let curr = total-freemem0
-console.clear()
-console.log("total memory",total)
-console.log("free memory",freemem0)
-console.log(" memory", curr)
-console.log((freemem0/total)*100)
+const http = require('http');
 
-}
-setInterval(calMemo, 5000);
+let server = http.createServer((req,res)=>{
+    try{
+        if(req.method==='GET'){
+            res.writeHead(200,{'content-type':'plain/text'});
+            res.end('200 is successs status code');
+
+        }
+        else{
+            res.writeHead(404,{'content-type':'plain/text'});
+            res.end('404 page not found');
+        }
+    }catch(error){
+    
+            res.writeHead(500,{'content-type':'text/plain'});
+            res.end('internal server error');
+    }
+});
+
+server.listen(3000,()=>{
+    console.log('this page runs at the 3000')
+})
